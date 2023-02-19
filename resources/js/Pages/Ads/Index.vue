@@ -1,6 +1,7 @@
 <script>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head } from '@inertiajs/vue3';
+    import AdsList from '@/Components/Ads/AdsList.vue';
 
     export default {
         props: {
@@ -9,21 +10,25 @@
 
         components: {
             Head,
-            AuthenticatedLayout
-        }
+            AuthenticatedLayout,
+            AdsList
+        },
+
     }
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Список всех объявлений" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Список объявлений</h2>
-        </template>
-        ЭТО работает!
+        
+        <div class="adsList">
+            <div v-for="ad in activeAds" :key="ad.id" :data-id="ad.id">
+                <AdsList :data="ad"> 
 
-        {{ activeAds }}
-
+                </AdsList>      
+            </div>
+        </div>
+        
     </AuthenticatedLayout>
 </template>

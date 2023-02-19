@@ -1,0 +1,497 @@
+//Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.adsList {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: #FFFFFF;
+
+    .addButton {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 40px;
+        margin-bottom: 50px;
+
+        .myAdButton {
+            box-sizing: border-box;
+            height: 30px;
+            width: 150px;
+            margin-bottom: 0;
+            background: #0EA5E9;
+            border: 1px solid #0EA5E9;
+            border-radius: 0;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: #FFFFFF;
+        }
+    }
+
+    .adBox {
+        display: flex;
+        margin-bottom: 60px;
+
+        .fotoAndTel {
+            width: 150px;
+
+            .adImg, .myAdImg {
+                height:150px;
+                width: 150px;
+                object-fit:cover;
+
+                margin-bottom: 10px;
+            }
+
+            .myAdImg {
+                margin-bottom: 0;
+            }
+
+            .adTel {
+                display: flex;
+                flex-wrap: wrap;
+                align-content: center;
+                justify-content: center;
+            
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+               
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+            
+                color: #000000;
+            }
+            
+            .adTelHidden {
+                display: none;
+            }
+
+            .adButton {
+                box-sizing: border-box;
+
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+
+                background: #0EA5E9;
+                border: 1px solid #0EA5E9;
+                border-radius: 0;
+                
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+
+                color: #FFFFFF;
+            }
+            .adButtonHidden {
+                display: none;
+            }
+        }
+
+        .detail {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            width: 100%;
+            margin-left: 15px;
+
+            .id {
+                display: none;
+            }
+
+            .adInfo {
+                display: flex;
+                justify-content: space-between;
+
+                .titleAndDiscription {
+                    margin-bottom: 10px;
+                    margin-right: 10px;
+
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19px;
+
+                    color: #000000;
+
+                    .title {
+                        margin-bottom: 5px;
+                    }
+
+                    .description{
+                        word-break: break-all;
+                    }
+                }
+
+                .adPrice {
+                    display: flex;
+
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: 29px;
+
+                    color: #000000;
+
+                    .priceValue {
+                        margin-right: 5px;
+                        width:max-content;
+                    }
+                }
+            }
+
+            .salesmanInfo {
+                display: flex;
+                justify-content: space-between;
+
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 30px;
+
+                color: #000000;
+
+                .salesmanNameBlock{
+                    display: flex;
+
+                    .salesmanTitle {
+                        margin-right: 5px;
+                    }
+                }
+
+                .salesmanCityBlock{
+                    display: flex;
+    
+                    .salesmanCity{
+                        margin-right: 5px;
+                    }
+                }
+                    
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: flex-end;
+
+                .buttonChange {
+                    box-sizing: border-box;
+                    height: 30px;
+                    width: 150px;
+                    margin-right: 20px;
+
+                    background: #0EA5E9;
+                    border: 1px solid #0EA5E9;
+                    border-radius: 0;
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    color: #FFFFFF;
+                }
+
+                .buttonDelete {
+                    box-sizing: border-box;
+                    height: 30px;
+                    width: 150px;
+
+                    background: #0EA5E9;
+                    border: 1px solid #0EA5E9;
+                    border-radius: 0;
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+
+    .popupBoxShow {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        height: 250px;
+        width: fit-content;
+        padding: 20px;
+        margin: auto;
+        border: 1px solid #0EA5E9;
+        background-color: #FFFFFF;
+
+        .popupText {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #000000;
+        }
+        .buttonPopupBox {
+            display: flex;
+            align-content: space-between;
+
+            .popupButtonYes {
+                box-sizing: border-box;
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+                margin-right: 20px;
+                background: #0EA5E9;
+                border: 1px solid #0EA5E9;
+                border-radius: 0;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+                color: #FFFFFF;
+            }
+
+            .popupButtonNo {
+                box-sizing: border-box;
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+                background: #0EA5E9;
+                border: 1px solid #0EA5E9;
+                border-radius: 0;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+                color: #FFFFFF;
+            }
+        }
+
+    }
+
+    .hidden {
+        display: none;
+    }
+}
+
+.titleText {
+    margin: 20px;
+    margin-bottom: 0;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+}
+
+.inputList {
+    .titleAd, .descriptionAd, .priceAd, .cityAd {
+        width: -webkit-fill-available;
+        margin-bottom: 30px;
+        margin-right: 20px;
+        margin-left: 20px;
+
+        .titleAdText, .descriptionAdText, .priceAdText, .cityAdText {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #000000;
+        }
+        .titleAdInput, .descriptionAdInput, .priceAdInput, .cityAdInput {
+            margin-bottom: 0;
+            width: 100%;
+            height: 50px;
+            border: 1px solid #000000;
+            padding: 2px;
+        }
+
+        .descriptionAdInput {
+            height: 150px;
+        }
+    }
+
+    .titleAd {
+        margin-top: 40px;
+    }
+}
+
+.uploadBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    .imgUploadBox {
+        display: flex;
+
+        .hideAdImg {
+            display: none;
+        }
+
+        .showAdImg {
+            margin-right: 20px;
+            margin-bottom: 40px;
+
+            width: 150px;
+            height: 150px;
+            object-fit:cover;
+        }
+
+        .inputUploadLabel {
+            margin-bottom: 20px;
+            text-align: center;
+            padding-top: 5px;
+
+            cursor: pointer;
+            box-sizing: border-box;
+            height: 30px;
+            width: 150px;
+            background: #0EA5E9;
+            border: 1px solid #0EA5E9;
+            border-radius: 0;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: #FFFFFF;
+        }
+
+        .inputUpload {
+            visibility: hidden;
+            box-sizing: border-box;
+            height: 30px;
+            width: 150px;
+            margin-bottom: 0;
+        }
+    }
+
+    .buttonSave {
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 30px;
+        width: 150px;
+        margin-bottom: 0;
+        background: #0EA5E9;
+        border: 1px solid #0EA5E9;
+        border-radius: 0;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #FFFFFF;
+    }
+}
+
+@media (max-width: 700px) { 
+    .adsList {
+        margin-top: 40px;
+        margin-left: 0;
+        margin-right: 10px;
+
+        .addButton {
+            justify-content: center;
+        }
+
+        .myAdButton {
+            justify-content: center;
+        }
+    }
+
+    .adBox {
+        flex-direction: column;
+
+        .fotoAndTel, .myAdImg {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px;
+        }
+        .detail {
+            margin-left: 0 !important;
+
+            .adInfo {
+                flex-direction: column;
+                padding-left: 10px;
+
+                .adPrice {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+
+                .buttonChange {
+                    margin-right: 0 !important; 
+                    margin-bottom: 20px;
+                }
+
+                .buttonDelete{
+                    align-items: center;
+                }
+            }
+
+            .salesmanInfo{
+                flex-direction: column;
+                padding-left: 10px;
+                
+
+                .salesmanCityBlock{
+                    margin-bottom: 10px;
+                }
+            }
+            
+        }
+    }
+
+    .uploadBox {
+        align-items: center;
+
+        .imgUploadBox {
+            align-items: center;
+            flex-direction: column;
+
+            .inputUploadLabel{
+                margin-bottom: 0;
+            }
+        }
+    
+        .showAdImg {
+            align-items: center;
+            margin-right: 0px !important;
+        }
+    }
+
+    
+}
+
