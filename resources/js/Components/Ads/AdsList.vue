@@ -1,47 +1,40 @@
-<script>
+<script setup>
 
-    export default {
-        props: {
-            data: Object,
-        },
+    const props = defineProps({
+        data: Object,
+    });
 
-        setup(props) {
-            return {
-                showTelNum: function(event) {
-                    let button       = event.target;
-                    let hiddenButton = button.classList.add("adButtonHidden");
-                    let adBox        = button.closest(".adBox");
-                    let telNum       = adBox.querySelector(".adTel");
-                    telNum.classList.remove("adTelHidden");
-                    
-                    if (telNum.textContent == "") {
-                    telNum.innerHTML = "№ телефона не указан";
-                    }
-                },
-
-                formattingNum: function(numValue) { // Форматирование чисел: добавить пробелы между разрядами до точки или запятой
-                    numValue = numValue.toString();
-                    let num = numValue.match(/^(.*?)((?:[,.]\d+)?|)$/);
-                    if (num) {
-                        let formattingNum = num[1].replace(/\B(?=(?:\d{3})*$)/g, ' ') + num[2];
-                        return formattingNum;
-                    } else {
-                        return num;
-                    }
-                },
-
-                getImgUrl: function(fileName) {
-                    return '/@imagetools/' + fileName;
-                },
-            }
+    function showTelNum(event) {
+        let button       = event.target;
+        let hiddenButton = button.classList.add("adButtonHidden");
+        let adBox        = button.closest(".adBox");
+        let telNum       = adBox.querySelector(".adTel");
+        telNum.classList.remove("adTelHidden");
+        
+        if (telNum.textContent == "") {
+        telNum.innerHTML = "№ телефона не указан";
         }
-    }
-    
+    };
+
+    function formattingNum(numValue) { // Форматирование чисел: добавить пробелы между разрядами до точки или запятой
+        numValue = numValue.toString();
+        let num = numValue.match(/^(.*?)((?:[,.]\d+)?|)$/);
+        if (num) {
+            let formattingNum = num[1].replace(/\B(?=(?:\d{3})*$)/g, ' ') + num[2];
+            return formattingNum;
+        } else {
+            return num;
+        }
+    };
+
+    function getImgUrl(fileName) {
+        return '/@imagetools/' + fileName;
+    };
+
 </script>
 
 <template>
-
-    <div :data-id="data.id" class="adBox" id="adBox">
+        <!--AdsList--> 
 
         <div class="fotoAndTel" id="fotoAndTel">
             <img class="adImg" id="adImg" :src="getImgUrl(data.picture)">
@@ -75,7 +68,6 @@
             </div>
 
         </div>
-    </div>
 
 </template>
 

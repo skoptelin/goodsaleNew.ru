@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Inertia\Inertia;
 
 class Handler extends ExceptionHandler
 {
@@ -12,6 +13,7 @@ class Handler extends ExceptionHandler
      *
      * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
      */
+
     protected $levels = [
         //
     ];
@@ -47,4 +49,29 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * Подготовить исключение для рендеринга.
+     *
+     * @param  \Throwable  $e
+     * @return \Throwable
+     */
+    public function render($request, Throwable $e) {
+
+        $response = parent::render($request, $e);
+
+        if (in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+            return Inertia::render('Error', ['status' => $response->getStatusCode()])
+                ->toResponse($request)
+                ->setStatusCode($response->getStatusCode());
+                
+        } else if ($response->getStatusCode() === 419) {
+            return back()->with([
+                'message' => 'Срок действия страницы истек, попробуйте еще раз.',
+            ]);
+        }
+
+        return $response;
+    }
+
 }

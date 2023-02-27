@@ -23,7 +23,9 @@
         "loader": "^2.1.1",
         "sass": "^1.58.1",
         "sweetalert2": "^11.4.8",
+        "vee-validate": "^4.7.4",
         "vite-imagetools": "^4.0.18",
-        "vue-sweetalert2": "^5.0.5"
+        "vue-sweetalert2": "^5.0.5",
+        "yup": "^1.0.0"
     }
 }

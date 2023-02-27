@@ -9,12 +9,21 @@
     import { Form, Field, ErrorMessage } from 'vee-validate';
     import * as yup from 'yup';
 
+    const props = defineProps({
+        ad: {
+            type: Object,
+            default: () => ({}),
+        },
+    });
+
     const form = useForm({
-        title: '',
-        description: '',
-        price: '',
-        city: '',
-        picture: '',
+        _method: 'put',
+        title: props.ad.title,
+        description: props.ad.description,
+        price: props.ad.price,
+        city: props.ad.city,
+        picture:props.ad.picture,
+
     });
 
     const validate = yup.object({
@@ -22,34 +31,55 @@
        description: yup.string().required('Заполните описание объявления').max(1500, 'Превышено максимальное количество символов: 1500'),
        price: yup.number().positive('Цена должна быть положительным числом').integer('Цена должна быть целым числом'),
        city: yup.string().required('Заполните местоположение').max(200, 'Превышено максимальное количество символов: 200'),
-       picture: yup.mixed().required('Загрузите фото')
+       picture: yup.mixed().nullable()
                     .test('fileFormat', 'Только фото в формате: jpg, jpeg, gif, png', 
                         (value) => {
-                            return value && ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(value.type);
-                    }).test('fileSize', 'Размер фото не должен превышать 5 МБ', value => value.size <= 5000000), //value.size on bytes
+                            if (value) {
+                                return value && ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(value.type);
+                            } else {
+                                return true
+                            }  
+                        }
+                    )
+                    .test('fileSize', 'Размер фото не должен превышать 5 МБ', 
+                        (value) => {
+                            if (value) {
+                               return value.size <= 5000000  //value.size on bytes
+                            } else {
+                                return true
+                            }  
+                        }
+                    ) 
+                               
     });
 
     const submit = async() => {
         try {
-            const createAd = await form.post(route('my_ads.store'), {
+            const buttonSave = document.querySelector(".buttonSave");
+            let id = buttonSave.dataset.adId;
+            await form.post(route('my_ads.update', id), {
                 onFinish: () =>  Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
-                                    title: 'Объявление создано',
+                                    title: 'Изменения сохранены',
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
             });
-            
+
         } catch(error) {
             Swal.fire({
-                icon: 'error',
-                title: 'Упс...',
-                text: 'Что-то пошло не так! Ошибка: ' + error.message,
-                confirmButtonColor: '#0EA5E9'
+            icon: 'error',
+            title: 'Упс...',
+            text: 'Что-то пошло не так! Ошибка: ' + error.message,
+            confirmButtonColor: '#0EA5E9'
             });
         }
         
+    };
+
+    function getImgUrl(fileName) {
+        return "/@imagetools/" + fileName;
     };
 
     function previewFile() {
@@ -69,14 +99,17 @@
         preview.src = "";
         }
     };
+
+    
 </script>
 
 <template>
-    <Head title="Создание объявления" />
+    <Head title="Изменение объявления" />
 
     <AuthenticatedLayout>
         
-        <div class="titleText">Создание объявления</div>
+        <div class="titleText">Изменение объявления</div>
+
         <Form @submit="submit" :validation-schema="validate">
             <div>
                 <div class="inputList" id="inputList">
@@ -89,7 +122,6 @@
                             type="text"
                             class="titleAdInput"
                             v-model="form.title"
-                            autofocus
                             autocomplete="title"
                             maxlength="200"
                         />
@@ -101,14 +133,13 @@
                     <div class="descriptionAd">
                         <InputLabel class="descriptionAdText" for="description" value="Описание:" />
 
-                        <Field name="description" v-slot="{ field }">
+                        <Field name="description" v-slot="{ field }" v-model="form.description">
                             <TextareaInput
                                 v-bind="field"
                                 name="description"
                                 id="description"
                                 type="text"
                                 class="descriptionAdInput"
-                                v-model="form.description"
                                 maxlength="1500"
                                 autocomplete="description"
                             />
@@ -155,7 +186,7 @@
 
                 <div class="uploadBox" id="uploadBox">
                     <div class="imgUploadBox" id="imgUploadBox">
-                        <img class="hideAdImg" id="AdImg"/>
+                        <img class="showAdImg" id="AdImg" :src="getImgUrl(ad.picture)"/>
                         <label class="inputUploadLabel" id="inputUploadLabel" for="inputUpload">Загрузить фото</label>
                         <Field
                             @change="previewFile()" 
@@ -169,10 +200,10 @@
                         <ErrorMessage name="picture" class="errorMessage" />
                     </div>
                     
-                    <TextInput type="submit" id="buttonSave" class="buttonSave" value="Создать объявление" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"/>
+                    <TextInput :data-ad-id="ad.id" type="submit" id="buttonSave" class="buttonSave" value="Сохранить изменения" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"/>
                 </div>
                 
             </div>
-        </Form>
+        </form>
     </AuthenticatedLayout>
 </template>

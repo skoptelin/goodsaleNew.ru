@@ -1,20 +1,23 @@
-<script>
+<script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head } from '@inertiajs/vue3';
+    import { Head, router } from '@inertiajs/vue3';
     import AdsList from '@/Components/Ads/AdsList.vue';
 
-    export default {
-        props: {
-            activeAds: Array,
-        },
+    const props = defineProps({
+        activeAds: Array,
+    });
 
-        components: {
-            Head,
-            AuthenticatedLayout,
-            AdsList
-        },
+    function goToAdDetailPage(event) {
+        let click       = event.target;
+        let adBox        = click.closest(".adBox");
+        let button = adBox.querySelector('.adButton');
 
-    }
+        if(click == button) {
+            return false
+        } else {
+            router.get("/ads/" + adBox.dataset.id);
+        }
+    };
 </script>
 
 <template>
@@ -23,7 +26,7 @@
     <AuthenticatedLayout>
         
         <div class="adsList">
-            <div v-for="ad in activeAds" :key="ad.id" :data-id="ad.id">
+            <div v-for="ad in activeAds" :key="ad.id" :data-id="ad.id" class="adBox" id="adBox" @click="goToAdDetailPage">
                 <AdsList :data="ad"> 
 
                 </AdsList>      

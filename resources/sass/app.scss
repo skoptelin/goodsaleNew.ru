@@ -8,7 +8,7 @@
 .adsList {
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 40px;
+    margin-top: 120px;
     margin-bottom: 40px;
     background-color: #FFFFFF;
 
@@ -135,6 +135,7 @@
 
                     .description{
                         word-break: break-all;
+                        white-space: pre-wrap;
                     }
                 }
 
@@ -335,6 +336,10 @@
         .descriptionAdInput {
             height: 150px;
         }
+
+        .errorMessage{
+            color: red;
+        }
     }
 
     .titleAd {
@@ -386,11 +391,15 @@
         }
 
         .inputUpload {
-            visibility: hidden;
+            display: none;
             box-sizing: border-box;
             height: 30px;
             width: 150px;
             margin-bottom: 0;
+        }
+
+        .errorMessage{
+            color: red;
         }
     }
 
@@ -412,9 +421,185 @@
     }
 }
 
+.adBoxDetail {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 120px;
+
+    width: 100%;
+
+    .adTitleDetail {
+        margin-bottom: 24px;
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .fotoAndTelDetail {
+        display: flex;
+        margin-bottom: 24px;
+
+        .adImgDetail {
+            height: 310px;
+            width: 490px;
+            object-fit: cover;
+
+            margin-right: 40px;
+        }
+
+        .adDetail {
+            .adPriceDetail {
+                display: flex;
+
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 800;
+                font-size: 28px;
+                line-height: 34px;
+
+                margin-bottom: 10px;
+                .priceValueDetail {
+                    
+                    margin-right: 5px;
+                }
+            }
+
+            .salesmanInfoDetail {
+                margin-bottom: 45px;
+                .salesmanNameBlockDetail {
+                    margin-bottom: 5px;
+
+                    .salesmanTitleDetail {
+                        font-family: 'Inter';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 12px;
+                        line-height: 15px;
+
+                        margin-right: 5px;
+                    }
+
+                    .salesmanValueDetail {
+                        font-family: 'Inter';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 15px;
+                    }
+                }
+                .salesmanCityBlockDetail {
+
+                    .salesmanCityDetail {
+                        font-family: 'Inter';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 12px;
+                        line-height: 15px;
+
+                        margin-right: 5px;
+                    }
+
+                    .salesmanCityValueDetail {
+                        font-family: 'Inter';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 15px;
+                    }
+
+                }
+            }
+
+            .adTelDetail {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: left;
+            
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+               
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+            
+                color: #000000;
+            }
+            
+            .adTelHidden {
+                display: none;
+            }
+
+            .adButtonDetail {
+                box-sizing: border-box;
+
+                height: 30px;
+                width: 150px;
+                margin-bottom: 0;
+
+                background: #0EA5E9;
+                border: 1px solid #0EA5E9;
+                border-radius: 0;
+                
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+
+                color: #FFFFFF;
+            }
+            .adButtonHidden {
+                display: none;
+            }
+        }
+    }
+
+    .description {
+        width: 490px;
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+.errorDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 300px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    line-height: 20px;
+
+    .errorTitle {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 20px;    
+    }
+
+    .errorDescription {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 20px;
+
+    }
+}
+
 @media (max-width: 700px) { 
     .adsList {
-        margin-top: 40px;
+        margin-top: 120px;
         margin-left: 0;
         margin-right: 10px;
 
@@ -482,7 +667,7 @@
             flex-direction: column;
 
             .inputUploadLabel{
-                margin-bottom: 0;
+                margin-bottom: 20px;
             }
         }
     
@@ -492,6 +677,36 @@
         }
     }
 
+    .adBoxDetail {
     
+        .fotoAndTelDetail {
+            flex-direction: column;
+    
+            .adImgDetail {
+                height: 185px;
+                width: 290px;
+    
+                margin-bottom: 20px;
+            }
+    
+            .adDetail {
+    
+                .salesmanInfoDetail {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .description {
+            width: 290px;
+        }
+    }
+
+    .errorDetail {
+    
+        .errorDescription {
+            width: 290px;
+            margin-bottom: 20px;
+        }
+    }
 }
 

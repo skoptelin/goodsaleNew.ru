@@ -52,9 +52,9 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function show(Ad $ad)
-    {
-        //
+    public function show(Ad $ad) {
+        $ad->user;
+        return Inertia::render("Ads/ShowAd", [ "Ad" => $ad ]);
     }
 
     /**
@@ -90,4 +90,5 @@ class AdController extends Controller
     {
         //
     }
+
 }

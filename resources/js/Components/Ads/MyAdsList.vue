@@ -1,6 +1,5 @@
 <script setup>
-    import { router, useForm } from '@inertiajs/vue3';
-    import TextInput from '@/Components/TextInput.vue';
+    import { router} from '@inertiajs/vue3';
     import Swal from 'sweetalert2';
 
     const props = defineProps({
@@ -18,9 +17,15 @@
             return num;
         }
     };
+
     function getImgUrl(fileName) {
         return "/@imagetools/" + fileName;
     };
+
+    function getUpdateUrl(adId) {
+        return "/my_ads/" + adId + "/edit";
+    };
+
     async function deleteAd(id) {
         await router.delete("/my_ads/" + id);
     };
@@ -56,7 +61,6 @@
 <template>
 
     <!--MyAdsList--> 
-    <div :data-ad-id="data.id" class="adBox" id="adBox">
 
         <div class="fotoAndTel" id="fotoAndTel">
             <img class="myAdImg" id="adImg" :src="getImgUrl(data.picture)" :alt="data.title">
@@ -83,13 +87,12 @@
             </div>
             
             <div class="buttons" id="buttons">
-                <form method="get" id="formChange" action="/my_ads/{{ data.id }}/edit">
-                    <button id="buttonChange" class="buttonChange">Изменить</button>
+                <form method="get" id="formChange" :action="getUpdateUrl(data.id)">
+                    <button type="submit" id="buttonChange" class="buttonChange">Изменить</button>
                 </form>
                 <button @click="showAlertDelete" id="buttonDelete" class="buttonDelete">Удалить</button>
             </div>
         </div>
-    </div>
 
 </template>
 

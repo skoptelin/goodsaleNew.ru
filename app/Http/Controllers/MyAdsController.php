@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Http\Requests\CreateAdRequest;
+use App\Http\Requests\UpdateAdRequest;
+use Illuminate\Http\RedirectResponse;
 
 class MyAdsController extends Controller
 {
@@ -43,7 +45,7 @@ class MyAdsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(CreateAdRequest $request): RedirectResponse {
         $userId = Auth::user()->id;
         $statusID = 3;
 
@@ -69,9 +71,7 @@ class MyAdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Ad $ad){
     }
 
     /**
@@ -83,9 +83,8 @@ class MyAdsController extends Controller
     public function edit($id) {
         $ad = Ad::where('id', $id)
                 ->first();
-        /* dd */($ad);
 
-        return view('ads/updateAd', [
+        return Inertia::render('Ads/UpdateAd', [
             'ad' => $ad
         ]);
     }
@@ -97,7 +96,7 @@ class MyAdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(UpdateAdRequest $request, $id): RedirectResponse {
         // Удаляем старую картинку, сохраняем новую картирнку, если она загружена
         if ($request->hasFile('picture')) {
             $imgNew = $request->file('picture')->store('images'); //Получаем имя новой картинки
@@ -130,7 +129,7 @@ class MyAdsController extends Controller
             ]
         );
         
-        return redirect('my_ads');
+        return to_route('my_ads.index');
     }
 
     /**
@@ -140,6 +139,7 @@ class MyAdsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
+
         $img = Ad::select('picture')
             ->where('id', $id)
             ->first();
