@@ -65,6 +65,7 @@ const submit = () => {
                 <TextInput
                     id="phone_num"
                     type="number"
+                    maxlength="5"
                     class="mt-1 block w-full"
                     v-model="form.phone_num"
                     required

@@ -3,11 +3,44 @@
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
-    import { Head, useForm } from '@inertiajs/vue3';
+    import { Head, router, useForm } from '@inertiajs/vue3';
     import TextareaInput from '@/Components/Ads/TextareaInput.vue';
     import Swal from 'sweetalert2';
     import { Form, Field, ErrorMessage } from 'vee-validate';
     import * as yup from 'yup';
+    import { Inertia } from '@inertiajs/inertia';
+
+    Inertia.on('before', (event) => {
+        if (isChangedIInputFlag === 'true') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Вы уверены, что хотите уйти со страницы?',
+                text: "Заполненные данные не сохранятся",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#0EA5E9',
+                confirmButtonText: 'Уйти',
+                cancelButtonText: 'Остаться'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = event.detail.visit.url.href;
+                }
+            })
+        }
+        
+    });
+
+    let isChangedIInputFlag = 'false'; //Флаг изменения инпутов
+
+    function isChangedIInput() {
+        if(form.title != '' || form.description !='' || form.price != '' || form.city != '' || form.picture != '') {
+            isChangedIInputFlag = 'true';
+        } else {
+            isChangedIInputFlag = 'false';
+        }
+        
+    };
 
     const form = useForm({
         title: '',
@@ -92,6 +125,7 @@
                             autofocus
                             autocomplete="title"
                             maxlength="200"
+                            v-on:change="isChangedIInput"
                         />
 
                         <InputError class="mt-2" :message="form.errors.title" />
@@ -111,6 +145,7 @@
                                 v-model="form.description"
                                 maxlength="1500"
                                 autocomplete="description"
+                                v-on:change="isChangedIInput"
                             />
                         </Field>
 
@@ -128,7 +163,8 @@
                             class="priceAdInput"
                             v-model="form.price"
                             maxlength="20"
-                            autocomplete="description"
+                            autocomplete="price"
+                            v-on:change="isChangedIInput"
                         /> 
 
                         <InputError class="mt-2" :message="form.errors.price" />
@@ -146,6 +182,7 @@
                             v-model="form.city"
                             maxlength="200"
                             autocomplete="city"
+                            v-on:change="isChangedIInput"
                         />
 
                         <InputError class="mt-2" :message="form.errors.city" />
@@ -158,7 +195,7 @@
                         <img class="hideAdImg" id="AdImg"/>
                         <label class="inputUploadLabel" id="inputUploadLabel" for="inputUpload">Загрузить фото</label>
                         <Field
-                            @change="previewFile()" 
+                            @change="previewFile(), isChangedIInput()" 
                             name="picture" 
                             id="inputUpload" 
                             class="inputUpload" 
