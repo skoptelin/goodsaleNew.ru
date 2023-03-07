@@ -8,6 +8,7 @@
     import Swal from 'sweetalert2';
     import { Form, Field, ErrorMessage } from 'vee-validate';
     import * as yup from 'yup';
+    import { Inertia } from '@inertiajs/inertia';
 
     const props = defineProps({
         ad: {
@@ -15,6 +16,42 @@
             default: () => ({}),
         },
     });
+
+    Inertia.on('before', (event) => { // Отслеживаем переход на другую страницу, предлагаем сохранить если что то изменено при уходе со страницы
+        if (isChangedIInputFlag === 'true') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Сохранить изменения?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Сохранить',
+                confirmButtonColor: '#0EA5E9',
+                denyButtonText: `Не сохранять`,
+                cancelButtonText: 'Закрыть',
+            }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector('.buttonSave').click();
+                        Swal.fire('Изменения сохранены', '', 'success');
+                        window.location = event.detail.visit.url.href;
+                    } else if (result.isDenied) {
+                        Swal.fire('Изменения не сохранены', '', 'info');
+                        window.location = event.detail.visit.url.href;
+                    }
+                })
+        }
+        
+    });
+
+    let isChangedIInputFlag = 'false'; //Флаг изменения инпутов
+
+    function isChangedIInput() {
+        if(form.title != props.ad.title || form.description != props.ad.description || form.price != props.ad.price || form.city != props.ad.city || form.picture != props.ad.picture) {
+            isChangedIInputFlag = 'true';
+        } else {
+            isChangedIInputFlag = 'false';
+        }
+        
+    };
 
     const form = useForm({
         _method: 'put',
@@ -54,6 +91,7 @@
     });
 
     const submit = async() => {
+        isChangedIInputFlag = 'false';
         try {
             const buttonSave = document.querySelector(".buttonSave");
             let id = buttonSave.dataset.adId;
@@ -124,6 +162,7 @@
                             v-model="form.title"
                             autocomplete="title"
                             maxlength="200"
+                            v-on:change="isChangedIInput"
                         />
 
                         <InputError class="mt-2" :message="form.errors.title" />
@@ -142,6 +181,7 @@
                                 class="descriptionAdInput"
                                 maxlength="1500"
                                 autocomplete="description"
+                                v-on:change="isChangedIInput"
                             />
                         </Field>
 
@@ -160,6 +200,7 @@
                             v-model="form.price"
                             maxlength="20"
                             autocomplete="description"
+                            v-on:change="isChangedIInput"
                         /> 
 
                         <InputError class="mt-2" :message="form.errors.price" />
@@ -177,6 +218,7 @@
                             v-model="form.city"
                             maxlength="200"
                             autocomplete="city"
+                            v-on:change="isChangedIInput"
                         />
 
                         <InputError class="mt-2" :message="form.errors.city" />
@@ -189,7 +231,7 @@
                         <img class="showAdImg" id="AdImg" :src="getImgUrl(ad.picture)"/>
                         <label class="inputUploadLabel" id="inputUploadLabel" for="inputUpload">Загрузить фото</label>
                         <Field
-                            @change="previewFile()" 
+                            @change="previewFile(), isChangedIInput()" 
                             name="picture" 
                             id="inputUpload" 
                             class="inputUpload" 
