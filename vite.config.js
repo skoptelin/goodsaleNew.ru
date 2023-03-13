@@ -8,7 +8,7 @@ export default defineConfig({
         laravel({
             input: 'resources/js/app.js',
             refresh: true,
-            transformOnServe: (code, devServerUrl) => code.replaceAll('/@imagetools', devServerUrl+'/storage/app/images'),
+            transformOnServe: (code, devServerUrl) => code.replaceAll('/@imagetools', devServerUrl+'/storage/app/public'),
         }),
         imagetools(),
         vue({
