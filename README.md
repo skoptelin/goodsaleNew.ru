@@ -1,67 +1,26 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Учебный проект "Доска объявлений"
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Проект на Laravel+Inertia+Vue (MVC)
 
-## About Laravel
+Выполненные задачи: 
+Доска объявлений с аутентификацией пользователей;
+Лента объявлений с доступом без аутентификации;
+Раздел “Мои объявления” с функционалом создания,  изменения и удаления объявлений;
+Адаптивная верстка для desktop и mobile устройств. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Результат: 
+Освоение фреймворка Vue и вспомогательных библиотек: Inertia, sweetalert2, vee-validate и yup.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Проектирование: 
+Структура базы данных в виде блок-схем с помощью draw.io с определением сущности users и ads, определение полей для каждой из сущностей и связи между таблицами “один ко многим”.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Серверная часть:
+	Подсоединение к базе данных. Модели и контроллеры. Подключение контроллеров к роутам. 
+Для функционала регистрации и аутентификации пользователей была использована библиотека Laravel Breeze. Доработан сервер и клиент для сохранения номера телефона у пользователя в базе данных. Стили под необходимый дизайн,  доработаны с помощью библиотеки Tailwind. 
 
-## Learning Laravel
+Клиентская часть: 
+Компоненты страниц на vue: лента, мои объявления, детали, создание и изменение объявления. Для установки стилей и разметки использован препроцессор Sass. Разметку и стили использованы с готового дизайна в Figma. Для отзывчивости интерфейса при создании и изменении объявлений, сделаны popups на основе библиотеки Sweetalert2. 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-"# goodsaleNew.ru" 
+Валидация и обработка ошибок: 
+Для настройки валидации на сервере и клиенте при создании и редактировании объявлений использованы встроенные инструменты  на сервере. На клиенте добавлены библиотеки Vee-validate и Yup. Валидация на клиенте добавлена для скорости обработки данных, чтобы не было запроса к серверу. Использованы 2 библиотеки, так как vee-validate имеет встроенные компоненты для установки валидации и уведомления об ошибке при валидации, а yup имеет широкую и простую настройку валидации данных. 
+Чтобы пользователь имел возможность воспользоваться навигацией и получал цивилизованные сообщения при появлении ошибок, настроен обработчик сообщений об ошибке.  На стороне клиента сделан глобальный обработчик ошибок в виде отдельного компонента, который встроен в родительский компонент страниц. Для отработки ответов сервера с ошибкам, использован встроенный функционал Inertia: расширены настройки exception handler на стороне сервера, который перенаправляет пользователя на компонент error на клиенте с сообщением о возникшей  проблеме.
